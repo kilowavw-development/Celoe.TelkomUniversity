@@ -35,45 +35,47 @@ export default function App() {
             title="Telkom University LMS"
           />
 
-          {/* "Curiosity" Buttons - Top Right Corner */}
-          <div className="absolute top-2 right-2 flex items-center gap-2 z-50">
-            {/* 1. Back Button (Semi-visible) */}
-            <button
-              onClick={() => triggerSurprise('back')}
-              className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
-              title="Go Back"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-[10px] font-medium uppercase tracking-tighter">Back</span>
-            </button>
+          {/* "Curiosity" Buttons - Top Right Corner (Hidden until hovered) */}
+          <div className="absolute top-0 right-0 p-6 z-50 group">
+            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              {/* 1. Back Button */}
+              <button
+                onClick={() => triggerSurprise('back')}
+                className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
+                title="Go Back"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="text-[10px] font-medium uppercase tracking-tighter">Back</span>
+              </button>
 
-            {/* 2. Icon Button (Settings) */}
-            <button
-              onClick={() => triggerSurprise('settings')}
-              className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 cursor-pointer"
-              title="Portal Settings"
-            >
-              <Settings className="w-4 h-4" />
-            </button>
+              {/* 2. Icon Button (Settings) */}
+              <button
+                onClick={() => triggerSurprise('settings')}
+                className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 cursor-pointer"
+                title="Portal Settings"
+              >
+                <Settings className="w-4 h-4" />
+              </button>
 
-            {/* 3. Copy Key Button (New) */}
-            <button
-              onClick={copyKey}
-              className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
-              title="Copy Access Key"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Key className="w-4 h-4" />}
-              <span className="text-[10px] font-medium uppercase tracking-tighter">{copied ? 'Copied' : 'Key'}</span>
-            </button>
+              {/* 3. Copy Key Button */}
+              <button
+                onClick={copyKey}
+                className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
+                title="Copy Access Key"
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Key className="w-4 h-4" />}
+                <span className="text-[10px] font-medium uppercase tracking-tighter">{copied ? 'Copied' : 'Key'}</span>
+              </button>
 
-            {/* 4. Button with Text (Grades/Academic) */}
-            <button
-              onClick={() => triggerSurprise('grades')}
-              className="px-3 py-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-2 cursor-pointer"
-            >
-              <GraduationCap className="w-3 h-3" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-red-600/40">Check Final Grades</span>
-            </button>
+              {/* 4. Button with Text (Grades/Academic) */}
+              <button
+                onClick={() => triggerSurprise('grades')}
+                className="px-3 py-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-2 cursor-pointer"
+              >
+                <GraduationCap className="w-3 h-3" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-red-600/40">Check Final Grades</span>
+              </button>
+            </div>
           </div>
         </>
       ) : (
